@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ezyevent-location-api-deployment
+  labels:
+    app: ezyevent-location-api
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: ezyevent-location-api
+  template:
+    metadata:
+      labels:
+        app: ezyevent-location-api
+    spec:
+      containers:
+        - name: ezyevent-location-api
+          image: gcr.io/ezyevents/location-api:v1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8081
