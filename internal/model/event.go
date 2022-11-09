@@ -9,12 +9,14 @@ type Event struct {
 	Summary  string   `json:"summary"`
 	Details  string   `json:"details"`
 	Images   []string `json:"images"`
+	Banner   string   `json:"banner"`
 	Location struct {
 		Type        string    `json:"type"`
 		Coordinates []float64 `json:"coordinates"`
 	} `json:"location"`
-	Price  float64 `json:"price"`
-	Date   int     `json:"date"`
-	TypeID string  `json:"typeId"`
-	Type   string  `json:"type"`
+	LocationName string  `json:"locationName"`
+	Price        float64 `json:"price"`
+	Date         int     `json:"date"`
+	TypeID       string  `json:"typeId"`
+	Type         string  `json:"type"`
 }

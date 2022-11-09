@@ -5,7 +5,7 @@ metadata:
   labels:
     app: ezyevent-location-api
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
       app: ezyevent-location-api
@@ -20,3 +20,20 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ezyevent-location-api-service
+  labels:
+    app: ezyevent-location-api
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    app: ezyevent-location-api
+  sessionAffinity: None
