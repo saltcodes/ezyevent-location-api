@@ -12,18 +12,19 @@ import (
 var events = db.Collection("events")
 
 func ListEvents(c *fiber.Ctx) error {
-	var eventTypes []model.Event
+	var eventList []model.Event
 	cursor, err := events.Find(ctx, bson.M{})
 
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	if err = cursor.All(ctx, &eventTypes); err != nil {
+	if err = cursor.All(ctx, &eventList); err != nil {
+
 		return util.CreateResponseMessage(c, 500, "internal server error", nil)
 	}
 
-	return util.CreateResponseMessage(c, 200, "success", eventTypes)
+	return util.CreateResponseMessage(c, 200, "success", eventList)
 }
 
 func CreateEvent(c *fiber.Ctx) error {

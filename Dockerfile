@@ -12,3 +12,4 @@ FROM scratch
 COPY --from=build /app/main .
 CMD ["/main"]
 EXPOSE 8081
+
