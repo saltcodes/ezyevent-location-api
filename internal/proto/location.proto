@@ -13,8 +13,6 @@ message LocationObject{
   Location location = 2;
 }
 
-
-
 service LocationDataService{
   rpc LocationData(LocationObject) returns  (google.protobuf.Empty);
 }

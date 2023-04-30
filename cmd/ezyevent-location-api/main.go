@@ -8,19 +8,22 @@ import (
 	"google.golang.org/grpc"
 	"log"
 	"net"
-	"os"
 )
 
 func main() {
-	//gRPC Connection establishing using tcp
-	con, err := net.Listen("tcp", ":8081")
-	if err != nil {
-		log.Fatal(err)
-	}
 
 	//Initializing Fiber
 	app := fiber.New()
 	handler.InitRoutes(app)
+	go func() {
+		log.Fatalln(app.Listen(":8081"))
+	}()
+
+	//gRPC Connection establishing using tcp
+	con, err := net.Listen("tcp", ":8181")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	//Initializing Grpc
 	rpc := grpc.NewServer()
@@ -32,11 +35,4 @@ func main() {
 		log.Fatal(rpcError)
 	}
 
-	//Finally
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8081"
-		log.Printf("Defaulting to port %s", port)
-	}
-	log.Fatalln(app.Listen("0.0.0.0:" + port))
 }
