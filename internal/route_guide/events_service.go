@@ -31,7 +31,7 @@ func queryEventsWithin(ctx *context.Context, queryObject *proto.LocationQueryObj
 							},
 						},
 						{"$minDistance", 0},
-						{"$maxDistance", queryObject.Radius},
+						{"$maxDistance", queryObject.Radius * 1064},
 					},
 				},
 			},
