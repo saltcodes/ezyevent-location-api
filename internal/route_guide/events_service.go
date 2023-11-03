@@ -4,6 +4,7 @@ import (
 	"ezyevent-location-api/internal/proto"
 	"go.mongodb.org/mongo-driver/bson"
 	"golang.org/x/net/context"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 func (s *Server) FindEventsWithin(ctx context.Context, queryObject *proto.LocationQueryObject) (*proto.EventsLists, error) {
@@ -50,4 +51,9 @@ func queryEventsWithin(ctx *context.Context, queryObject *proto.LocationQueryObj
 	}
 
 	return *result
+}
+
+func (s *Server) DeleteEvent(ctx context.Context, eventID *proto.EventId) (*emptypb.Empty, error) {
+	_, err := eventsCollection.DeleteOne(ctx, bson.D{{"id", eventID.Id}})
+	return new(emptypb.Empty), err
 }
